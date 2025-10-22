@@ -10,7 +10,6 @@ from rules.utils.tree import tree
 
 
 class TreeTestCase(TestCase):
-
     fixtures = ["tree-tests.json"]
 
     def test_surt_only(self):

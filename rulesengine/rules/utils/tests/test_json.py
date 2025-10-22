@@ -7,7 +7,6 @@ import rules.utils.json
 
 
 class JSONTestCase(unittest.TestCase):
-
     def setUp(self):
         self.obj = {
             "start_date": datetime(1963, 11, 23, 17, 16, 20),

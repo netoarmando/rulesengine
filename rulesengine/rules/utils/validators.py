@@ -1,5 +1,5 @@
 from dateutil.parser import parse as parse_date
-import ipaddr
+import ipaddress
 import jsonschema
 
 
@@ -104,10 +104,10 @@ def validate_rule_json(input):
             raise ValueError(("retrieve end date", e))
     if "ip_range" in input:
         try:
-            ipaddr.IPAddress(input["ip_range"]["start"])
+            ipaddress.ip_address(input["ip_range"]["start"])
         except ValueError as e:
             raise ValueError(("ip range start", e))
         try:
-            ipaddr.IPAddress(input["ip_range"]["end"])
+            ipaddress.ip_address(input["ip_range"]["end"])
         except ValueError as e:
             raise ValueError(("ip range end", e))

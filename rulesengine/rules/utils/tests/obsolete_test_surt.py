@@ -4,7 +4,6 @@ from rules.utils.surt import Surt
 
 
 class SurtTestCase(unittest.TestCase):
-
     def test_protocol_only(self):
         surt = Surt("http")
         self.assertEqual(surt.parts, ["http://("])

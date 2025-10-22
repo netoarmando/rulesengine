@@ -16,7 +16,6 @@ from rules.models import (
 
 
 class ViewsTestCase(TestCase):
-
     def setUp(self):
         self.rule = Rule()
         now = datetime.now(timezone.utc)
@@ -199,5 +198,5 @@ class ViewsTestCase(TestCase):
         parsed = json.loads(response.content.decode("utf-8"))
         self.assertEqual(parsed["status"], "error")
         self.assertEqual(
-            parsed["message"], "capture-date query string param must be " "a datetime"
+            parsed["message"], "capture-date query string param must be a datetime"
         )

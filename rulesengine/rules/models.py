@@ -21,8 +21,8 @@ class RuleBase(models.Model):
     # Used for surt and surt-neg rules
     surt = models.TextField(
         verbose_name="SURT",
-        help_text="""The SURT (or partial SURT) to which this rule applies. This may be an incomplete SURT which will be matched for a more specific URL.""",
-    )  # noqa: E501
+        help_text="""The SURT (or partial SURT) to which this rule applies. This may be an incomplete SURT which will be matched for a more specific URL.""",  # noqa: E501
+    )
     # SURT Negation example: rewrite everything but a given path
     neg_surt = models.TextField(
         verbose_name="SURT negation",
@@ -32,12 +32,13 @@ class RuleBase(models.Model):
 
     # Used for protocol-specific rules
     protocol = models.TextField(
-        help_text="""The protocol to apply this rule to.""", blank=True  # noqa: E501???
+        help_text="""The protocol to apply this rule to.""", blank=True
     )
 
-    # Used for subdomain-specific rules, for matching subdomains like www that get canonicalized away in surt form
+    # Used for subdomain-specific rules, for matching subdomains like www that
+    # get canonicalized away in surt form
     subdomain = models.TextField(
-        help_text="""The canonicalized-away subdomain, like www, to apply this rule to.""",  # noqa: E501???
+        help_text="""The canonicalized-away subdomain, like www, to apply this rule to.""",  # noqa: E501
         blank=True,
     )
 
@@ -57,7 +58,7 @@ class RuleBase(models.Model):
 
     # Used for daterange rules
     capture_date_start = models.DateTimeField(
-        help_text="""The earliest date of capture to start applying this rule.""",  # noqa: E501
+        help_text="""The earliest date of capture to start applying this rule.""",
         null=True,
         blank=True,
     )

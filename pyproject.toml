@@ -1,0 +1,43 @@
+[project]
+name = "rulesengine"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "certifi>=2025.10.5",
+    "django>=5.2.7",
+    "django-extensions>=4.1",
+    "djangoql>=0.18.1",
+    "idna>=3.11",
+    "jsonschema>=4.25.1",
+    "psycopg[binary]>=3.2.11",
+    "python-dateutil>=2.9.0.post0",
+    "urlcanon>=0.3.1",
+    "werkzeug>=3.1.3",
+]
+
+[dependency-groups]
+dev = [
+    "coverage>=7.11.0",
+    "pytest>=8.4.2",
+    "pytest-cov>=7.0.0",
+    "pytest-django>=4.11.1",
+    "ruff>=0.14.1",
+]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "rulesengine.settings"
+addopts = "--rootdir rulesengine --cov=rulesengine --cov-report xml --cov-report term"
+
+[tool.ruff.lint]
+extend-select = ["E501","E731"]
+ignore = [
+    "E731",  # Do not assign a `lambda` expression, use a `def`
+]
+
+[tool.ruff]
+exclude = [
+    "**/migrations/*.py",
+    "settings.py",
+]

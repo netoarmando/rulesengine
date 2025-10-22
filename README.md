@@ -4,13 +4,21 @@ The Replay Rules Engine is a piece of software which allows for a set of rules t
 
 ## Running
 
-The project can be run with `make run`, which will ensure that dependencies are installed before running the Django server. The Makefile assumes a virtualenv location of `venv`; if you do not wish to use this location, you will just need to install the dependencies manually in your virtualenv with `pip install -r requirements.txt`.
+The project can be run with `make run`, which uses [uv](https://docs.astral.sh/uv/) to manage dependencies and run the Django server.
 
 The rules engine is built for Python 3.
 
 ## Developing
 
-There are two make targets of note: `make test` runs all tests via Django's test command and then computes coverage, and `make lint` runs flake8 on the project; `make check` runs both tests and lint. If you add an app via `./manage.py startapp <appname>`, make sure to add that appname to the `--source` flag of the `coverage run` command in the Makefile.
+The project uses [uv](https://docs.astral.sh/uv/) for dependency management. 
+
+Development commands:
+
+- `make test` runs all tests via pytest
+- `make check` runs ruff linting and format checking
+- `make format` applies ruff fixes and formatting
+
+All commands use `uv run` to execute within the managed environment.
 
 ## License
 

@@ -1,60 +1,29 @@
-VENV=venv
-COVERAGE=$(VENV)/bin/coverage
-PIP=$(VENV)/bin/pip
-PYTHON=$(VENV)/bin/python
-FLAKE8=$(VENV)/bin/flake8
-
 .PHONY: run
-run: venv rulesengine/db.sqlite3
-	$(PYTHON) rulesengine/manage.py runserver_plus 0.0.0.0:8000
+run:
+	uv run rulesengine/manage.py runserver_plus 0.0.0.0:8000
+
+
+.PHONY: check
+check:
+	uv run ruff check
+	uv run ruff format --check
 
 .PHONY: format
 format:
-	$(VENV)/bin/black .
-
-.PHONY: check
-check: lint test benchmark
-
-.PHONY: benchmark
-benchmark: venv clean-db fuzz-large
-	cd rulesengine; \
-	../$(PYTHON) manage.py benchmark
+	uv run ruff check --fix
+	uv run ruff format
 
 .PHONY: test
-test: runtests coveragereport
-
-.PHONY: runtests
-runtests: venv
-	cd rulesengine; \
-	../$(COVERAGE) run --source=rules --omit="*/migrations/*,*/admin.py,*/apps.py,*/test_*" ./manage.py test
-
-.PHONY: coveragereport
-coveragereport:
-	cd rulesengine; \
-	../$(COVERAGE) report -m --skip-covered; \
-	rm -f .coverage
-
-.PHONY: lint
-lint: venv
-	$(FLAKE8) rulesengine --exclude migrations,settings.py
-
-rulesengine/db.sqlite3: venv
-	cd rulesengine; \
-	../$(PYTHON) manage.py migrate;
+test:
+	uv run pytest
 
 .PHONY: fuzz-large
 fuzz-large: rulesengine/db.sqlite3
-	cd rulesengine; \
-	../$(PYTHON) manage.py loaddata rules/fixtures/fuzzed-large.json
+	uv run rulesengine/manage.py loaddata rules/fixtures/fuzzed-large.json
 
 .PHONY: fuzz-small
 fuzz-small:
-	cd rulesengine; \
-	../$(PYTHON) manage.py loaddata rules/fixtures/fuzzed-large.json
-
-venv:
-	virtualenv --python `which python3` venv
-	$(PIP) install -r requirements.txt
+	uv run rulesengine/manage.py loaddata rules/fixtures/fuzzed-large.json
 
 .PHONY: clean
 clean: clean-db clean-files
@@ -65,5 +34,5 @@ clean-db:
 
 .PHONY: clean-files
 clean-files:
-	rm -rf venv
+	rm -rf .venv
 	find rulesengine/ -name __pycache__ -or -name "*.py[co]" -exec rm -rf {} \;

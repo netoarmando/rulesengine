@@ -12,7 +12,6 @@ from rules.models import (
 
 
 class RuleBaseTestCase(TestCase):
-
     def test_populate(self):
         now = datetime.now()
         base = Rule()
@@ -101,7 +100,6 @@ class RuleBaseTestCase(TestCase):
 
 
 class RuleTestCase(TestCase):
-
     def test_summary(self):
         now = datetime.now()
         rule = Rule()
@@ -279,7 +277,6 @@ class RuleTestCase(TestCase):
 
 
 class RuleChangeTestCase(TestCase):
-
     def setUp(self):
         self.now = datetime.now(timezone.utc)
         self.rule = Rule()

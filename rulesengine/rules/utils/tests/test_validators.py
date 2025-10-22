@@ -1,13 +1,13 @@
 from datetime import datetime
 from unittest import TestCase
 
+from dateutil.parser import ParserError
 from jsonschema import ValidationError
 
 from rules.utils.validators import validate_rule_json
 
 
 class ValidateRuleJSONTestCase(TestCase):
-
     def setUp(self):
         self.now = datetime.now()
 
@@ -81,7 +81,7 @@ class ValidateRuleJSONTestCase(TestCase):
                 ValueError(
                     (
                         "capture start date",
-                        ValueError("Unknown string format:", "bad-wolf 1"),
+                        ParserError("Unknown string format: %s", "bad-wolf 1"),
                     )
                 )
             ),
@@ -105,7 +105,7 @@ class ValidateRuleJSONTestCase(TestCase):
                 ValueError(
                     (
                         "capture end date",
-                        ValueError("Unknown string format:", "bad-wolf 2"),
+                        ParserError("Unknown string format: %s", "bad-wolf 2"),
                     )
                 )
             ),
@@ -129,7 +129,7 @@ class ValidateRuleJSONTestCase(TestCase):
                 ValueError(
                     (
                         "retrieve start date",
-                        ValueError("Unknown string format:", "bad-wolf 3"),
+                        ParserError("Unknown string format: %s", "bad-wolf 3"),
                     )
                 )
             ),
@@ -153,7 +153,7 @@ class ValidateRuleJSONTestCase(TestCase):
                 ValueError(
                     (
                         "retrieve end date",
-                        ValueError("Unknown string format:", "bad-wolf 4"),
+                        ParserError("Unknown string format: %s", "bad-wolf 4"),
                     )
                 )
             ),
@@ -181,8 +181,7 @@ class ValidateRuleJSONTestCase(TestCase):
                     (
                         "ip range start",
                         ValueError(
-                            "'bad wolf' does not appear to be an IPv4 or "
-                            "IPv6 address"
+                            "'bad wolf' does not appear to be an IPv4 or IPv6 address"
                         ),
                     )
                 )
@@ -208,8 +207,7 @@ class ValidateRuleJSONTestCase(TestCase):
                     (
                         "ip range end",
                         ValueError(
-                            "'bad wolf' does not appear to be an IPv4 or "
-                            "IPv6 address"
+                            "'bad wolf' does not appear to be an IPv4 or IPv6 address"
                         ),
                     )
                 )

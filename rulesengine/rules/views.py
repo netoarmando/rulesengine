@@ -104,9 +104,7 @@ def rules_for_request(request):
         try:
             capture_date = parse_date(capture_date_qs)
         except ValueError as e:
-            return error(
-                "capture-date query string param must be " "a datetime", str(e)
-            )
+            return error("capture-date query string param must be a datetime", str(e))
     rules_result = rules_query(
         surt_qs,
         neg_surt=request.GET.get("neg-surt"),
